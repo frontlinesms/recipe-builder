@@ -1,20 +1,23 @@
 var RecipeBuilder = function () {
     var playground;
     var init = function () {
-        d3.select("#playground")
+        playground = d3.select("#playground")
             .append("svg:svg")
-            .attr("width", 800)
-            .attr("height", 1000);
+            .attr("width", 1000)
+            .attr("height", 2000);
+        $("#add-recipe-button").click(addRecipe);
     };
 
     var addRecipe = function () {
-        //
+        var dragUtil = new DragUtil(playground);
+        dragUtil.addDraggableRectangle();
+
     };
+
     init();
 }
 
 var recipeBuilder;
 $(function () {
     recipeBuilder = new RecipeBuilder();
-
 });
