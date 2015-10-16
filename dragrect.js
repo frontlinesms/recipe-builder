@@ -35,9 +35,11 @@ var DragUtil = function (svgContainer) {
 
     var dragrect, dragbarleft, dragbarright, dragbartop, dragbarbottom;
 
-    var addDraggableRectangle = function () {
+    var addDraggableRectangle = function (rectangleId, descriptor) {
         var newg = svg.append("g")
-              .data([{x: width / 2, y: height / 2}]);
+            .attr("rectangleId", rectangleId)
+            .attr("class", descriptor)
+            .data([{x: width / 2, y: height / 2}]);
 
         dragrect = newg.append("rect")
               .attr("id", "active")

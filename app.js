@@ -10,7 +10,8 @@ var RecipeBuilder = function () {
 
     var addRecipe = function () {
         var dragUtil = new DragUtil(playground);
-        dragUtil.addDraggableRectangle();
+        var countOfRecipes = $(".recipe").size();
+        dragUtil.addDraggableRectangle("recipe-" + (countOfRecipes + 1), "recipe");
 
     };
 
