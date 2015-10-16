@@ -146,24 +146,24 @@ var DragUtil = function (svgContainer) {
 
     function ldragresize(d) {
        if (isXChecked) {
-          var oldx = d.x;
-         //Max x on the right is x + width - dragbarw
-         //Max x on the left is 0 - (dragbarw/2)
-          d.x = Math.max(0, Math.min(d.x + width - (dragbarw / 2), d3.event.x));
-          width = width + (oldx - d.x);
-          dragbarleft
-            .attr("x", function(d) { return d.x - (dragbarw / 2); });
+            var oldx = d.x;
+             //Max x on the right is x + width - dragbarw
+             //Max x on the left is 0 - (dragbarw/2)
+            d.x = Math.max(0, Math.min(d.x + width - (dragbarw / 2), d3.event.x));
+            width = width + (oldx - d.x);
+            dragbarleft
+                .attr("x", function(d) { return d.x - (dragbarw / 2); });
 
-          dragrect
-            .attr("x", function(d) { return d.x; })
-            .attr("width", width);
+            dragrect
+                .attr("x", function(d) { return d.x; })
+                .attr("width", width);
 
-         dragbartop
-            .attr("x", function(d) { return d.x + (dragbarw/2); })
-            .attr("width", width - dragbarw)
-         dragbarbottom
-            .attr("x", function(d) { return d.x + (dragbarw/2); })
-            .attr("width", width - dragbarw)
+            dragbartop
+                .attr("x", function(d) { return d.x + (dragbarw/2); })
+                .attr("width", width - dragbarw)
+            dragbarbottom
+                .attr("x", function(d) { return d.x + (dragbarw/2); })
+                .attr("width", width - dragbarw)
       }
     }
 
@@ -180,13 +180,13 @@ var DragUtil = function (svgContainer) {
          dragbarright
             .attr("x", function(d) { return dragx - (dragbarw/2) });
 
-         //resize the drag rectangle
-         //as we are only resizing from the right, the x coordinate does not need to change
-         dragrect
+        //resize the drag rectangle
+        //as we are only resizing from the right, the x coordinate does not need to change
+        dragrect
             .attr("width", width);
-         dragbartop
+        dragbartop
             .attr("width", width - dragbarw)
-         dragbarbottom
+        dragbarbottom
             .attr("width", width - dragbarw)
       }
     }
