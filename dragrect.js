@@ -33,7 +33,7 @@ var DragUtil = function (svgContainer) {
 
     var svg = svgContainer;
 
-    var dragrect, dragbarleft, dragbarright, dragbartop, dragbarbottom;
+    var dragrect, dragbarleft, dragbarright, dragbartop, dragbarbottom, receiverLink, conditionsPassedLink, conditionsFailedLink;
 
     var addDraggableRectangle = function (rectangleId, descriptor) {
         var newg = svg.append("g")
@@ -84,43 +84,63 @@ var DragUtil = function (svgContainer) {
               .attr("cursor", "ns-resize")
               .call(dragtop);
 
-        dragbarbottom = newg.append("rect")
-              .attr("x", function(d) { return d.x + (dragbarw/2); })
-              .attr("y", function(d) { return d.y + height - (dragbarw/2); })
-              .attr("id", "dragright")
-              .attr("height", dragbarw)
-              .attr("width", width - dragbarw)
-              .attr("fill", "lightgreen")
-              .attr("fill-opacity", .5)
-              .attr("cursor", "ns-resize")
-              .call(dragbottom);
+        receiverLink = newg.append("circle")
+            .attr("class", "receiverLink")
+            .attr("cx", function(d) { return d.x + (dragbarw/2); })
+            .attr("cy", function(d) { return d.y - (dragbarw/2); })
+            .attr("fill", "red")
+            .attr("r", 20)
 
+        dragbarbottom = newg.append("rect")
+            .attr("x", function(d) { return d.x + (dragbarw/2); })
+            .attr("y", function(d) { return d.y + height - (dragbarw/2); })
+            .attr("id", "dragright")
+            .attr("height", dragbarw)
+            .attr("width", width - dragbarw)
+            .attr("fill", "lightgreen")
+            .attr("fill-opacity", .5)
+            .attr("cursor", "ns-resize")
+            .call(dragbottom);
+
+        conditionsPassedLink = newg.append("circle")
+            .attr("class", "conditionsPassedLink")
+            .attr("cx", function(d) { return d.x + (dragbarw/2); })
+            .attr("cy", function(d) { return d.y + height - (dragbarw/2); })
+            .attr("fill", "green")
+            .attr("r", 20)
+
+        conditionsFailedLink = newg.append("circle")
+            .attr("class", "conditionsFailedLink")
+            .attr("cx", function(d) { return d.x + 150 })
+            .attr("cy", function(d) { return d.y + height - (dragbarw/2); })
+            .attr("fill", "blue")
+            .attr("r", 20)
     };
 
     function dragmove(d) {
       if (isXChecked) {
-          dragrect
-              .attr("x", d.x = Math.max(0, Math.min(w - width, d3.event.x)))
-          dragbarleft
-              .attr("x", function(d) { return d.x - (dragbarw/2); })
-          dragbarright
-              .attr("x", function(d) { return d.x + width - (dragbarw/2); })
-          dragbartop
-              .attr("x", function(d) { return d.x + (dragbarw/2); })
-          dragbarbottom
-              .attr("x", function(d) { return d.x + (dragbarw/2); })
+            dragrect.attr("x", d.x = Math.max(0, Math.min(w - width, d3.event.x)))
+            dragbarleft.attr("x", function(d) { return d.x - (dragbarw/2); })
+            dragbarright.attr("x", function(d) { return d.x + width - (dragbarw/2); })
+
+            dragbartop.attr("x", function(d) { return d.x + (dragbarw/2); })
+            receiverLink.attr("cx", function(d) { return d.x + (dragbarw/2); })
+
+            dragbarbottom.attr("x", function(d) { return d.x + (dragbarw/2); })
+            conditionsPassedLink.attr("cx", function(d) { return d.x + (dragbarw/2); })
+            conditionsFailedLink.attr("cx", function(d) { return d.x + 150; })
       }
       if (isYChecked) {
-          dragrect
-              .attr("y", d.y = Math.max(0, Math.min(h - height, d3.event.y)));
-          dragbarleft
-              .attr("y", function(d) { return d.y + (dragbarw/2); });
-          dragbarright
-              .attr("y", function(d) { return d.y + (dragbarw/2); });
-          dragbartop
-              .attr("y", function(d) { return d.y - (dragbarw/2); });
-          dragbarbottom
-              .attr("y", function(d) { return d.y + height - (dragbarw/2); });
+            dragrect.attr("y", d.y = Math.max(0, Math.min(h - height, d3.event.y)));
+            dragbarleft.attr("y", function(d) { return d.y + (dragbarw/2); });
+            dragbarright.attr("y", function(d) { return d.y + (dragbarw/2); });
+
+            dragbartop.attr("y", function(d) { return d.y - (dragbarw/2); });
+            receiverLink.attr("cy", function(d) { return d.y - (dragbarw/2); });
+
+            dragbarbottom.attr("y", function(d) { return d.y + height - (dragbarw/2); });
+            conditionsPassedLink.attr("cy", function(d) { return d.y + height - (dragbarw/2); });
+            conditionsFailedLink.attr("cy", function(d) { return d.y + height - (dragbarw/2); });
       }
     }
 
